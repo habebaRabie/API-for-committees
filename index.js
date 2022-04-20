@@ -12,9 +12,8 @@ db.authenticate().then(()=>{
 const Committee = require("./modules/committeeModule");
 const Member = require("./modules/memberModule");
 
-
-Committee.hasMany(Member);
-Member.belongsTo(Committee);
+Committee.hasMany(Member, {foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+Member.belongsTo(Committee, {foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
 app.use("/member",require("./routes/memberRoutes"));
 app.use("/committee",require("./routes/committeeRoutes"));

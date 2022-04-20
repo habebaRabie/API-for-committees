@@ -13,6 +13,7 @@ route.post("/",async (req,res) =>{
         name: req.body.name,
         committeeName: req.body.committeeName,
         graduate: req.body.graduate,
+        commiteeId: req.body.commiteeId,
     });
     res.send(newMember);
 });
