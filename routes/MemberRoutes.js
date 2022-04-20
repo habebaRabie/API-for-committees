@@ -13,6 +13,34 @@ route.get("/", async (req,res)=>{
     } 
 });
 
+//retrieves the name of all members and their committees
+route.get("/memberForCommittee", async (req,res)=>{
+    try {
+        const member = await Member.findAll({
+            attributes: ['name', 'committeeName']
+        });
+        res.send(member);
+    } catch (err) {
+        console.log("something went wrong");
+        res.send("something went wrong");
+    } 
+});
+
+//retrieves all members of a certain committee
+route.get("/:committeeName", async (req,res)=>{
+    try {
+        const member = await Member.findAll({
+            where: {
+                committeeName: req.params.committeeName
+            }
+        });
+        res.send(member);
+    } catch (err) {
+        console.log("something went wrong");
+        res.send("something went wrong");
+    } 
+});
+
 route.post("/",async (req,res) =>{
     try{
         const newMember = await Member.create({
