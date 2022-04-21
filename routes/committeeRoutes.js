@@ -1,7 +1,7 @@
 const express = require("express");
 const route= express.Router();
-const Member= require("../modules/memberModule");
-const Committee= require("../modules/committeeModule");
+const Member= require("../models/memberModel");
+const Committee= require("../models/committeeModel");
 
 
 route.get("/", async (req,res)=>{

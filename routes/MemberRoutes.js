@@ -1,6 +1,6 @@
 const express = require("express");
 const route= express.Router();
-const Member= require("../modules/memberModule");
+const Member= require("../models/memberModel");
 
 
 route.get("/", async (req,res)=>{

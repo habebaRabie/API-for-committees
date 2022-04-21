@@ -9,8 +9,8 @@ db.authenticate().then(()=>{
     console.log("connect");
 });
 
-const Committee = require("./modules/committeeModule");
-const Member = require("./modules/memberModule");
+const Committee = require("./models/committeeModel");
+const Member = require("./models/memberModel");
 
 Committee.hasMany(Member, {foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 Member.belongsTo(Committee, {foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
