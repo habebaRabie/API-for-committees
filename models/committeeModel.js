@@ -2,7 +2,7 @@ const {DataTypes}= require("sequelize");
 const db = require("../config/db");
 
 
-module.exports= db.define("commitee",{
+module.exports= db.define("committees",{
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -10,16 +10,31 @@ module.exports= db.define("commitee",{
         primaryKey:true,
     },
     name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: false,
+        validate: {
+            isAlpha: true,
+            min: 'A',
+            max: 'z',
+        },
     },
     headName: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: false,
+        validate: {
+            isAlpha: true,
+            min: 'A',
+            max: 'z',
+        },
     },
     viceName: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: false,
+        validate: {
+            isAlpha: true,
+            min: 'A',
+            max: 'z',
+        },
     },
 
 });

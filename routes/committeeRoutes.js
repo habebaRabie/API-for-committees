@@ -6,11 +6,14 @@ const Committee= require("../models/committeeModel");
 
 route.get("/", async (req,res)=>{
     try{
-        const committees= await Committee.findAll();
+        const committees= await Committee.findAll(
+            {
+                attributes: {exclude: ['id']},
+            }
+        );
         res.send(committees);
     }
     catch(err){
-        console.log("something went wrong");
         res.send("something went wrong");
     }
 });
@@ -22,14 +25,14 @@ route.post("/",async (req,res) =>{
             viceName: req.body.viceName,
         });
         res.send(newCommitee);
+        // console.log(res.statusCode)
     }
     catch(err){
-        console.log("something went wrong");
         res.send("something went wrong");
     }
     
 });
-route.put("/:id", async (req,res)=>{
+route.patch("/:id", async (req,res)=>{
     try{
         const commitee = await Committee.findByPk(req.params.id);
         commitee.name= req.body.name;
@@ -39,7 +42,6 @@ route.put("/:id", async (req,res)=>{
         res.send(commitee);
     }
     catch(err){
-        console.log("something went wrong");
         res.send("something went wrong");
     }
     
@@ -51,7 +53,6 @@ route.delete("/:id", async (req,res)=>{
         res.send(commitee);
     }
     catch(err){
-        console.log("something went wrong");
         res.send("something went wrong");
     }
 });
