@@ -1,5 +1,6 @@
 const {DataTypes}= require("sequelize");
 const db = require("../config/db");
+const Joi = require('joi');
 
 module.exports= db.define("members",{
     id: {
@@ -12,15 +13,9 @@ module.exports= db.define("members",{
         type: DataTypes.STRING(100),
         allowNull: false,
         validate: {
-            isAlpha: true,
-            min: 'A',
-            max: 'z',
+            is: [/^[a-zA-Z\s]*$/],
         },
     },
-    // committeeId: {
-    //     type: DataTypes.INTEGER,
-    //     allowNull: false,
-    // },
     isGrad: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

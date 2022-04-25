@@ -1,5 +1,6 @@
 const {DataTypes}= require("sequelize");
 const db = require("../config/db");
+const Joi = require('joi');
 
 
 module.exports= db.define("committees",{
@@ -12,29 +13,23 @@ module.exports= db.define("committees",{
     name: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        validate: {
-            isAlpha: true,
-            min: 'A',
-            max: 'z',
-        },
+        // validate: {
+        //     is: [/^[a-zA-Z\s]*$/],
+        // },
     },
     headName: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        validate: {
-            isAlpha: true,
-            min: 'A',
-            max: 'z',
-        },
+        // validate: {
+        //     is: [/^[a-zA-Z\s]*$/],
+        // },
     },
     viceName: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        validate: {
-            isAlpha: true,
-            min: 'A',
-            max: 'z',
-        },
+        // validate: {
+        //     is: [/^[a-zA-Z\s]*$/],
+        // },
     },
 
 });
