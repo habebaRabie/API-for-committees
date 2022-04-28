@@ -8,7 +8,11 @@ require("dotenv").config();
 
 route.get("/", async (req,res)=>{
     try{
-        const admins= await Admin.findAll();
+        const admins= await Admin.findAll(
+            {
+                attributes: { exclude: ["password"] },
+            }
+        );
         res.send(admins);
     }
     catch(err){

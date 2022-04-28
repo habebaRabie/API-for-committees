@@ -51,10 +51,8 @@ route.post("/",async (req,res) =>{
             DateJoined: Date.now(),
         });
         res.send(newMember);
-        // console.log(req)
     }
     catch(err){
-        // console.log(err)
         res.send("something went wrong");
     }
     

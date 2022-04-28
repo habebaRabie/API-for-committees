@@ -19,17 +19,15 @@ route.post("/", async (req, res) => {
   try {
     const data = req.body;
     const schema = Joi.object().keys({
-        name: Joi.string().alphanum().required(),
-        // name: Joi.alternatives().try(not(Joi.number()), Joi.string()).required(),
-        headName: Joi.string().required(),
-        viceName: Joi.string().required(),
+        name: Joi.string().required().regex(/^[a-zA-Z\s]*$/),
+        headName: Joi.string().required().regex(/^[a-zA-Z\s]*$/),
+        viceName: Joi.string().required().regex(/^[a-zA-Z\s]*$/),
     });
     const result = schema.validate(data);
     if (result.error) {
       res.status(400).send(result.error.details[0].message);
       return;
     }
-
     const newCommitee = await Committee.create(result.value);
     res.send(newCommitee);
 
@@ -41,12 +39,24 @@ route.post("/", async (req, res) => {
 
 route.patch("/:id", async (req, res) => {
   try {
-    const commitee = await Committee.findByPk(req.params.id);
-    commitee.name = req.body.name;
-    commitee.headName = req.body.headName;
-    commitee.viceName = req.body.viceName;
-    await commitee.save();
-    res.send(commitee);
+      const commitee = await Committee.findByPk(req.params.id);
+      const data = req.body;
+
+      const schema = Joi.object().keys({
+        name: Joi.string().regex(/^[a-zA-Z\s]*$/),
+        headName: Joi.string().regex(/^[a-zA-Z\s]*$/),
+        viceName: Joi.string().regex(/^[a-zA-Z\s]*$/),
+      });
+      const result = schema.validate(data);
+
+      if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+      }
+      
+      const updatedCommitee = await commitee.update(result.value);
+      res.send(updatedCommitee);
+      
   } catch (err) {
     res.send("something went wrong");
   }
